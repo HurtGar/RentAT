@@ -73,6 +73,6 @@ public class UserController {
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable("id") Integer id) throws NotFoundException {
 		userService.delete(mapperUserDTOToUser.mapperService(userService.findById(id)
-				.map(mapperUserToUserDTO::mapperService).orElseThrow(()-> new NotFoundException(String.format("Error, id = %s", id)))));
+				.map(mapperUserToUserDTO::mapperService).orElseThrow(()-> new NotFoundException(String.format("Error,usuario con  id = %s no borrado.", id)))));
 	}
 }

@@ -14,7 +14,6 @@ import com.springboot.AT.repository.CarRepository;
 import com.springboot.AT.repository.RentRepository;
 import com.springboot.AT.repository.UserRepository;
 
-import javassist.NotFoundException;
 
 @Service
 public class RentServiceImpl implements RentService {
@@ -36,10 +35,10 @@ public class RentServiceImpl implements RentService {
 	}
 
 	@Override
-	public Optional<Rent> findById(Integer id) throws NotFoundException {
+	public Optional<Rent> findById(Integer id){
 		Optional<Rent> alquiler = rentRepository.findById(id);
 		if (!alquiler.isPresent()) {
-			throw new NotFoundException("Error, rent is empty.");
+			System.err.println("Error, alquiler no encontrado.");
 		}
 		return alquiler;
 	}

@@ -7,14 +7,13 @@ import org.springframework.data.domain.Pageable;
 
 import com.springboot.AT.entity.Rent;
 
-import javassist.NotFoundException;
 
 public interface RentService {
 
 	//Create
 	public Rent save(Rent rent);
 	//Read
-	public Optional<Rent> findById(Integer id) throws NotFoundException;
+	public Optional<Rent> findById(Integer id);
 	public Page<Rent> findAll(Pageable pageable);
 	//Update --> Relacionar Rent con coche y usuario.
 	public Optional<Rent> joinRentWithCarAndUser(Integer idRent, Integer idCar, Integer idUser);

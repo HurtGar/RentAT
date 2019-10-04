@@ -12,9 +12,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "coches")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Car implements Serializable{
 	
 	/**
