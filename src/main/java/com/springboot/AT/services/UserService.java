@@ -6,6 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import com.springboot.AT.entity.User;
 
+import javassist.NotFoundException;
+
 
 public interface UserService {
 	
@@ -13,7 +15,7 @@ public interface UserService {
 	public User save(User usuario);
 	
 	//Read
-	public Optional<User> findById(Integer i);
+	public Optional<User> findById(Integer id) throws NotFoundException;
 	public Page<User> findAll(Pageable pageable);
 	//Update
 	
