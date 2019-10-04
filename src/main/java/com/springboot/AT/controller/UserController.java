@@ -47,7 +47,7 @@ public class UserController {
 
 		return userService.findById(id)
 				.map(mapperUserToUserDTO::mapperService)
-				.orElseThrow(()-> new NotFoundException(String.format("Error, id = %s", id)));
+				.orElseThrow(()-> new NotFoundException(String.format("Error, no existe usuario con id = %s", id)));
 			
 	}
 	@GetMapping

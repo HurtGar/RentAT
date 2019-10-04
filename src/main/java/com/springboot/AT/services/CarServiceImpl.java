@@ -12,7 +12,6 @@ import com.springboot.AT.entity.User;
 import com.springboot.AT.repository.CarRepository;
 import com.springboot.AT.repository.UserRepository;
 
-import javassist.NotFoundException;
 
 @Service
 public class CarServiceImpl implements CarService{
@@ -32,10 +31,11 @@ public class CarServiceImpl implements CarService{
 	}
 
 	@Override
-	public Optional<Car> findById(Integer id) throws NotFoundException {
+	public Optional<Car> findById(Integer id){
 		Optional<Car> coche = carRepository.findById(id);
 		if(!coche.isPresent()) {
-			throw new NotFoundException("Error, car is empty.");
+			//throw new NotFoundException("Usuario no encontrado.");
+			System.err.println("User not found.");
 		}
 		
 		return coche;
