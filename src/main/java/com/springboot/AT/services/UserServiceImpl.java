@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 import com.springboot.AT.entity.User;
 import com.springboot.AT.repository.UserRepository;
 
-import javassist.NotFoundException;
-
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -29,10 +27,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Optional<User> findById(Integer id) throws NotFoundException{
+	public Optional<User> findById(Integer id){
 		Optional<User> usuario = userRepository.findById(id);
 		if(!usuario.isPresent()) {
-			throw new NotFoundException("Usuario no encontrado.");
+			//throw new NotFoundException("Usuario no encontrado.");
+			System.err.println("User not found.");
 		}
 		
 		return usuario;

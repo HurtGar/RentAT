@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "coches")
 public class Car implements Serializable{
@@ -27,6 +29,7 @@ public class Car implements Serializable{
 	private String model;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonBackReference	//Indicar que es una relación bidireccional!!!
 	private User user;
 	
 	public Integer getIdCar() {
