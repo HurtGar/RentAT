@@ -12,8 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
@@ -32,9 +32,12 @@ public class User implements Serializable{
 	private String name;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	@Column(name="coches")
-	@JsonManagedReference	//Bidireccional
+	@JsonBackReference
 	private List<Car> cars;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@JsonBackReference
+	private List<Rent> rents;
 	
 	public Integer getIdUser() {
 		return idUser;

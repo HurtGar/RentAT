@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.AT.dto.RentDTO;
+import com.springboot.AT.dto.ResultRent;
 import com.springboot.AT.entity.Rent;
 import com.springboot.AT.exception.NotFoundException;
 import com.springboot.AT.exception.ValidationException;
@@ -57,6 +60,12 @@ public class RentController {
 			@RequestParam(name = "size", defaultValue = "10", required = false)Integer size){
 		Pageable pageable = PageRequest.of(page, size);
 		return rentService.findAll(pageable);
+	}
+	
+	@GetMapping("/carprofit")
+	public ResultRent carprofit(@RequestParam(name="idCoche", required = true)Integer id, @RequestParam(name="fechaIni", required = true) @DateTimeFormat(iso =ISO.DATE) LocalDate fechaIni, @RequestParam(name="fechaFin") @DateTimeFormat(iso =ISO.DATE)LocalDate fechaFin) {
+		
+		return rentService.carProFit(id, fechaIni, fechaFin);
 	}
 	
 	//Update

@@ -12,15 +12,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-/*
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-*/
+
 
 @Entity
 @Table(name = "alquileres")
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Rent implements Serializable{
 
 	/**
@@ -40,11 +38,12 @@ public class Rent implements Serializable{
 	@Column(name = "precio")
 	private Double price;
 	
-	//@JsonManagedReference
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonManagedReference
 	private User user;
-	//@JsonManagedReference
+	
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonManagedReference
 	private Car car;
 	
 	public Integer getIdRent() {

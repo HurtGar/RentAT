@@ -15,6 +15,8 @@ public class ResultRent {
 	@NotNull
 	private Double price;
 	
+	public ResultRent() {}
+	
 	public String getTitle() {
 		return title;
 	}

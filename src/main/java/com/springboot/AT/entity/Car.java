@@ -1,6 +1,7 @@
 package com.springboot.AT.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,10 +10,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "coches")
@@ -31,8 +34,12 @@ public class Car implements Serializable{
 	private String model;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JsonBackReference	//Indicar que es una relación bidireccional!!!
+	@JsonManagedReference
 	private User user;
+	
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "car")
+	@JsonBackReference
+	List<Rent> rents;
 	
 	public Integer getIdCar() {
 		return idCar;

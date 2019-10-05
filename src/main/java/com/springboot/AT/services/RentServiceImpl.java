@@ -1,5 +1,6 @@
 package com.springboot.AT.services;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.springboot.AT.dto.ResultRent;
 import com.springboot.AT.entity.Car;
 import com.springboot.AT.entity.Rent;
 import com.springboot.AT.entity.User;
@@ -78,6 +80,28 @@ public class RentServiceImpl implements RentService {
 	public void delete(Rent rent) {
 		rentRepository.delete(rent);
 
+	}
+
+	@Override
+	public ResultRent carProFit(Integer idCar, LocalDate inicio, LocalDate fin) {
+		Optional<Car> coche = carRepository.findById(idCar);
+		if(!coche.isPresent()) {
+			throw new IllegalArgumentException("Error, el coche no existe.");
+		}
+
+
+		Double precioTotal = rentRepository.carProfit(coche.get().getIdCar(), inicio,fin);
+		System.out.println(precioTotal);
+		ResultRent resultadoAlquiler = new ResultRent();
+		
+		resultadoAlquiler.setTitle("Marca: "+coche.get().getMarca()+", Modelo: "+coche.get().getModel());
+		resultadoAlquiler.setInitDate(inicio);
+		resultadoAlquiler.setFinalDate(fin);
+		resultadoAlquiler.setPrice(precioTotal);
+		
+		
+		return resultadoAlquiler;
+		
 	}
 
 }

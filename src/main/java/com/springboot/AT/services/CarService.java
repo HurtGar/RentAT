@@ -9,9 +9,24 @@ import com.springboot.AT.entity.Car;
 
 public interface CarService {
 	//Create
+	/**
+	 * Save a car.
+	 * @param rent Car to save in the DataBase.
+	 * @return Returns an object of type car.
+	 */
 	public Car save(Car coche);
 	//Read
+	/**
+	 * Search for a car by its identifier.
+	 * @param id Identifier to search.
+	 * @return An Optional object of type car.
+	 */
 	public Optional<Car> findById(Integer id);
+	/**
+	 * Search all cars in the database.
+	 * @param Pageable type object
+	 * @return Return a page with all cars.
+	 */
 	public Page<Car> findAll(Pageable pageable);
 	//Update
 	/**
@@ -22,5 +37,9 @@ public interface CarService {
 	 */
 	public Optional<Car> joinCarWithUser(Integer idCar, Integer idUser);
 	//Delete
+	/**
+	 * Delete a car from the database.
+	 * @param rent Car to remove.
+	 */
 	public void delete(Car coche);
 }
