@@ -1,5 +1,8 @@
 package com.springboot.AT.controller;
 
+import java.time.LocalDate;
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,21 +33,21 @@ public class RentController {
 	@Autowired
 	private RentService rentService;
 	@Autowired
-	private MapperService<Rent, RentDTO> mapperCarToCarDTO;
+	private MapperService<Rent, RentDTO> mapperRentTORentDTO;
 	@Autowired
-	private MapperService<RentDTO, Rent> mapperCarDTOToCar;
+	private MapperService<RentDTO, Rent> mapperRentDTOToRent;
 	
 	//Create
 	@PostMapping
 	public Rent save(@RequestBody @Valid RentDTO rentDTO) throws ValidationException{
-		return rentService.save(mapperCarDTOToCar.mapperService(rentDTO));
+		return rentService.save(mapperRentDTOToRent.mapperService(rentDTO));
 	}
 	//Read
 	@GetMapping("/{id}")
 	public RentDTO findById(@PathVariable("id") Integer id) throws NotFoundException{
 
 		return rentService.findById(id)
-				.map(mapperCarToCarDTO::mapperService)
+				.map(mapperRentTORentDTO::mapperService)
 				.orElseThrow(()-> new NotFoundException(String.format("Error, no existe usuario con id = %s", id)));
 			
 	}
@@ -56,13 +60,32 @@ public class RentController {
 	}
 	
 	//Update
+	@PostMapping("/{idRent}/user/{idUser}/car/{idCar}")
+	public RentDTO joinRentWithCarAndUser(@PathVariable("idRent") Integer idRent,@PathVariable("idUser") Integer idUser,@PathVariable("idCar") Integer idCar) {
+		Optional<Rent> alquiler = rentService.joinRentWithCarAndUser(idRent, idCar, idUser);
+		
+		return mapperRentTORentDTO.mapperService(alquiler.get());
+	}
 	
+	@PutMapping("/{idRent}")
+	public Rent updateRent(@PathVariable("idRent") Integer idRent, @RequestParam(name = "fechIni", required = true) String inicio, @RequestParam(name= "fechFin", required = true) String fin, @RequestParam(name="price", required = false) Double price) throws NotFoundException {
+		
+		RentDTO alquiler = rentService.findById(idRent)
+				.map(mapperRentTORentDTO::mapperService)
+				.orElseThrow(()->new NotFoundException(String.format("Error, no existe el alquiler con id = %s", idRent)));
+	
+		alquiler.setInitRent(LocalDate.parse(inicio));
+		alquiler.setFinalRent(LocalDate.parse(fin));
+		alquiler.setPrice(price);
+		
+		return rentService.save(mapperRentDTOToRent.mapperService(alquiler));
+	}
 	
 	//Delete
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable("id") Integer id)throws NotFoundException {
-		rentService.delete(mapperCarDTOToCar
-				.mapperService(rentService.findById(id).map(mapperCarToCarDTO::mapperService)
+		rentService.delete(mapperRentDTOToRent
+				.mapperService(rentService.findById(id).map(mapperRentTORentDTO::mapperService)
 				.orElseThrow(()->new NotFoundException(String.format("Error,alquiler con id = %s no borrado.", id)))));
 	}
 }

@@ -82,7 +82,7 @@ public class CarController {
 	@PutMapping("/{id}")
 	public Car update(@PathParam("id") Integer id, @RequestBody CarDTO cocheDTO) throws NotFoundException {
 		CarDTO coche = carService.findById(id).map(mapperCarToCarDTO::mapperService)
-				.orElseThrow(() -> new NotFoundException(String.format("Error, id = %s", id)));
+				.orElseThrow(() -> new NotFoundException(String.format("Error, no existe el coche con id = %s", id)));
 
 		coche.setMarca(cocheDTO.getMarca());
 		coche.setModel(cocheDTO.getModel());
