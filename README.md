@@ -4,6 +4,11 @@ Proyecto final para el curso de ATSistemas.
 ## Descripción del proyecto
 Se nos pide crear un proyecto en Spring que gestione el alquiler de coches.
 Nuestro proyecto estará formado por las clases: User, Car y Rent.
+Al final del proyecto, deberemos realizar un Test a una función llamada carProFit. La función trata de buscar el beneficio que aporta un coche de alquiler comprendidas dos fechas. Dicha función recibirá un identificador de coche, una fecha de inicio y una fecha de fin de búsqueda; devolverá un objeto de tipo ResultRent con los campos:
+  - Titulo (String): marca de coche + modelo de coche.
+  - Fecha inicio (LocalDate): fecha de inicio de la búsqueda.
+  - Fecha fin (LocalDate): fecha final de la búsqueda.
+  - Precio (Double): beneficio que ha aportado el vehículo.
 
 ### Clases proyecto
 
