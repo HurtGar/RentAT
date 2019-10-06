@@ -35,7 +35,7 @@ public class CarServiceImpl implements CarService{
 		Optional<Car> coche = carRepository.findById(id);
 		if(!coche.isPresent()) {
 			//throw new NotFoundException("Usuario no encontrado.");
-			System.err.println("User not found.");
+			System.err.println("Car not found.");
 		}
 		
 		return coche;
