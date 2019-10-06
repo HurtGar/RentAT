@@ -85,15 +85,10 @@ public class RentServiceImpl implements RentService {
 	@Override
 	public ResultRent carProFit(Integer idCar, LocalDate inicio, LocalDate fin) {
 		Optional<Car> coche = carRepository.findById(idCar);
-		if(!coche.isPresent()) {
-			throw new IllegalArgumentException("Error, el coche no existe.");
-		}
-
 
 		Double precioTotal = rentRepository.carProfit(coche.get().getIdCar(), inicio,fin);
-		System.out.println(precioTotal);
-		ResultRent resultadoAlquiler = new ResultRent();
 		
+		ResultRent resultadoAlquiler = new ResultRent();
 		resultadoAlquiler.setTitle("Marca: "+coche.get().getMarca()+", Modelo: "+coche.get().getModel());
 		resultadoAlquiler.setInitDate(inicio);
 		resultadoAlquiler.setFinalDate(fin);

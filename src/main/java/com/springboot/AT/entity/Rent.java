@@ -21,9 +21,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Rent implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id

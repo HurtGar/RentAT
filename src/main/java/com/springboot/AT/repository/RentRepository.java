@@ -17,7 +17,7 @@ public interface RentRepository extends JpaRepository<Rent, Integer> {
 	 * @param idCar Identificador del coche a buscar.
 	 * @param string Fecha de inicio de búsqueda.
 	 * @param string2 Fecha de fin de búsqueda.
-	 * @return Devuelve un objeto
+	 * @return Devuelve un Double con la suma del beneficio.
 	 */
 	@Query(value = "SELECT SUM(price) FROM Rent AS r  WHERE r.car.idCar = :idCar AND r.finalRent between :ini AND :fin")
 	public Double carProfit(@Param(value = "idCar") Integer idCar, @Param(value="ini") LocalDate ini, @Param(value="fin") LocalDate fin);
